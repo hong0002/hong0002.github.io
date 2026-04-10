@@ -1,12 +1,543 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>내 홈페이지</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박지홍 | Portfolio</title>
+  <meta name="description" content="박지홍의 포트폴리오 홈페이지입니다." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #1e293b;
+      --text: #e5e7eb;
+      --subtext: #94a3b8;
+      --primary: #38bdf8;
+      --primary-dark: #0ea5e9;
+      --border: #334155;
+      --white: #ffffff;
+      --max-width: 1100px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--subtext);
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 100px 0 70px;
+    }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .hero-text h1 span {
+      color: var(--primary);
+    }
+
+    .hero-text p {
+      color: var(--subtext);
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+      max-width: 700px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #082f49;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+    }
+
+    .btn-outline {
+      border-color: var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .hero-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #818cf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 18px;
+    }
+
+    .hero-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      color: var(--subtext);
+      margin-bottom: 18px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .section-desc {
+      color: var(--subtext);
+      margin-bottom: 30px;
+    }
+
+    .about-grid,
+    .project-grid,
+    .skills-grid,
+    .contact-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .card p,
+    .card li {
+      color: var(--subtext);
+    }
+
+    .card ul {
+      padding-left: 18px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .project-thumb {
+      height: 180px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      font-size: 0.92rem;
+      color: var(--primary);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-pill {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--subtext);
+      text-align: center;
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-wrap,
+      .about-grid,
+      .contact-grid,
+      .project-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>안녕하세요!</h1>
-  <p>이곳은 내 GitHub 홈페이지입니다.</p>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Jihong Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="#about">소개</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#skills">기술</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="hero-text">
+          <h1>안녕하세요,<br><span>박지홍</span>의 포트폴리오입니다.</h1>
+          <p>
+            AI, 딥러닝, 자연어처리, 멀티모달 연구와 개발을 기록하는 개인 포트폴리오 사이트입니다.
+            진행한 프로젝트, 사용 기술, 연구 관심 분야를 한눈에 볼 수 있도록 구성했습니다.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+            <a href="#contact" class="btn btn-outline">연락하기</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="profile-circle">PJH</div>
+          <h3>AI Researcher & Developer</h3>
+          <p>
+            자연어처리, 멀티모달 AI, 컴퓨터 비전, 의료 AI, 신뢰가능한 AI에 관심이 있습니다.
+          </p>
+          <div class="hero-tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">NLP</span>
+            <span class="tag">VLM</span>
+            <span class="tag">Computer Vision</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">소개</h2>
+        <p class="section-desc">간단한 자기소개와 연구/개발 방향입니다.</p>
+
+        <div class="about-grid">
+          <div class="card">
+            <h3>About Me</h3>
+            <p>
+              저는 인공지능 분야를 공부하며 자연어처리, 멀티모달 학습, 비전-언어 모델,
+              디지털 헬스케어, 컴퓨터 비전 관련 연구와 프로젝트를 수행하고 있습니다.
+              실제 문제를 해결할 수 있는 모델 설계와 실험 분석에 관심이 많습니다.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Research Interests</h3>
+            <ul>
+              <li>Natural Language Processing</li>
+              <li>Multimodal Learning</li>
+              <li>Vision-Language Models</li>
+              <li>Computer Vision</li>
+              <li>Digital Healthcare AI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">프로젝트</h2>
+        <p class="section-desc">대표 프로젝트를 여기에 정리하면 됩니다.</p>
+
+        <div class="project-grid">
+          <div class="card project-card">
+            <div class="project-thumb">Project 01</div>
+            <h3>한국어 문장 관계 판별 모델</h3>
+            <p>
+              담화표지와 NLI를 결합한 멀티태스크 학습 기반 한국어 문장 관계 판별 프로젝트.
+            </p>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Demo</a>
+              <a href="#">Paper</a>
+            </div>
+          </div>
+
+          <div class="card project-card">
+            <div class="project-thumb">Project 02</div>
+            <h3>의료 멀티모달 VLM 연구</h3>
+            <p>
+              의료 이미지와 텍스트 문맥 변화에 따른 VLM의 취약성과 강건성을 분석하는 연구.
+            </p>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Poster</a>
+              <a href="#">Paper</a>
+            </div>
+          </div>
+
+          <div class="card project-card">
+            <div class="project-thumb">Project 03</div>
+            <h3>계약서 위험 분석 웹앱</h3>
+            <p>
+              OCR, LLM, 규칙 기반 분석을 결합해 계약서 위험 요소를 탐지하는 웹 서비스.
+            </p>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">기술 스택</h2>
+        <p class="section-desc">주로 사용하는 언어, 프레임워크, 도구들입니다.</p>
+
+        <div class="skills-grid">
+          <div class="card">
+            <h3>Programming</h3>
+            <div class="skill-list">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">C</span>
+              <span class="skill-pill">JavaScript</span>
+              <span class="skill-pill">HTML/CSS</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>AI / ML</h3>
+            <div class="skill-list">
+              <span class="skill-pill">PyTorch</span>
+              <span class="skill-pill">Transformers</span>
+              <span class="skill-pill">LoRA / QLoRA</span>
+              <span class="skill-pill">Scikit-learn</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Tools</h3>
+            <div class="skill-list">
+              <span class="skill-pill">Git / GitHub</span>
+              <span class="skill-pill">Linux</span>
+              <span class="skill-pill">VS Code</span>
+              <span class="skill-pill">Jupyter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">연락처</h2>
+        <p class="section-desc">아래 링크와 정보는 본인 정보로 수정해서 사용하면 됩니다.</p>
+
+        <div class="contact-grid">
+          <div class="card">
+            <h3>Contact Info</h3>
+            <p><strong>Email:</strong> your_email@example.com</p>
+            <p><strong>GitHub:</strong> github.com/your-github-id</p>
+            <p><strong>Blog:</strong> your-blog-link</p>
+          </div>
+
+          <div class="card">
+            <h3>Message</h3>
+            <p>
+              AI 연구, 프로젝트 협업, 포트폴리오 관련 문의가 있다면 이메일이나 GitHub를 통해 연락해주세요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 박지홍. All Rights Reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
